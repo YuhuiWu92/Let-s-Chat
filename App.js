@@ -1,35 +1,33 @@
 import React, { Component } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text, TextInput } from "react-native";
+import { useState } from "react";
 
-export default class HelloWorld extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.box1}></View>
-        <View style={styles.box2}></View>
-        <View style={styles.box3}></View>
-      </View>
-    );
+export default function HelloWorld() {
+  const [displayedWroteText, setDisplayedWroteText] = useState("");
+  const [message, setMessage] = useState([]);
+
+  function getInputHandler(enteredText) {
+    setDisplayedWroteText(enteredText);
   }
+  function addToMessageHandler() {
+    setMessage((currentMessage) => [...currentMessage, displayedWroteText]);
+  }
+  return (
+    <View style={{ flex: 1, justifyContent: "center" }}>
+      <TextInput
+        style={{ flex: 1, justifyContent: "center" }}
+        placeholder="Type here..."
+        onChangeText={getInputHandler}
+      />
+      <Button
+        onPress={() => {
+          addToMessageHandler;
+        }}
+        title="Press Me"
+      />
+      <Text>You wrote: {enteredText}</Text>
+    </View>
+  );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "row",
-  },
-  box1: {
-    flex: 1,
-    backgroundColor: "pink",
-  },
-
-  box2: {
-    flex: 1,
-    backgroundColor: "red",
-  },
-
-  box3: {
-    flex: 1,
-    backgroundColor: "black",
-  },
-});
+/* const styles = StyleSheet.create({}); */
