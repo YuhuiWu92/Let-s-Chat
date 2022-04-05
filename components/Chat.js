@@ -5,14 +5,14 @@ export default class Chat extends React.Component {
   render() {
     let { name } = this.props.route.params;
     this.props.navigation.setOptions({ title: name });
-    const { BGColor } = this.props.route.params;
+    const { bgColor } = this.props.route.params;
     return (
       <View
         style={{
           flex: 1,
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: BGColor,
+          backgroundColor: bgColor,
         }}
       >
         <Text style={{ backgroundColor: "#f31282" }}>Hello {name}!</Text>
