@@ -1,33 +1,44 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, TextInput } from "react-native";
-import { useState } from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  Button,
+  Alert,
+  ScrollView,
+} from "react-native";
 
-export default function HelloWorld() {
-  const [displayedWroteText, setDisplayedWroteText] = useState("");
-  const [message, setMessage] = useState([]);
-
-  function getInputHandler(enteredText) {
-    setDisplayedWroteText(enteredText);
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { text: "" };
   }
-  function addToMessageHandler() {
-    setMessage((currentMessage) => [...currentMessage, displayedWroteText]);
+  alertMyText(input = []) {
+    Alert.alert(input.text);
   }
-  return (
-    <View style={{ flex: 1, justifyContent: "center" }}>
-      <TextInput
-        style={{ flex: 1, justifyContent: "center" }}
-        placeholder="Type here..."
-        onChangeText={getInputHandler}
-      />
-      <Button
-        onPress={() => {
-          addToMessageHandler;
-        }}
-        title="Press Me"
-      />
-      <Text>You wrote: {enteredText}</Text>
-    </View>
-  );
+  render() {
+    return (
+      <View style={{ flex: 1, justifyContent: "center" }}>
+        <ScrollView>
+          <Text style={{ fontSize: 110 }}>
+            This text is so big! And so long! You have to scroll!
+          </Text>
+        </ScrollView>
+        <TextInput
+          style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
+          onChangeText={(text) => this.setState({ text })}
+          value={this.state.text}
+          placeholder="Type here ..."
+        />
+        <Text>You wrote: {this.state.text}</Text>
+        <Button
+          onPress={() => {
+            this.alertMyText({ text: this.state.text });
+          }}
+          title="Press Me"
+        />
+      </View>
+    );
+  }
 }
-
-/* const styles = StyleSheet.create({}); */
