@@ -15,7 +15,7 @@ export default class Chat extends React.Component {
           backgroundColor: BGColor,
         }}
       >
-        <Text>Hello Chat!</Text>
+        <Text style={{ backgroundColor: "#f31282" }}>Hello {name}!</Text>
       </View>
     );
   }

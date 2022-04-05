@@ -7,6 +7,7 @@ import {
   TextInput,
   Pressable,
   ImageBackground,
+  TouchableOpacity,
 } from "react-native";
 // importing images and icons
 import BackgroundImage from "../assets/background-Image.png";
@@ -17,17 +18,24 @@ export default class Start extends React.Component {
 
     // state will be updated with whatever values change for the specific states
     this.state = {
-      /* text: "", */
       name: "",
-      BGColor: "this.color",
+      BGColor: this.colors.blue,
     };
   }
-  // update the backgroundcolor by choosing one of the colors
-  BGcolorHandler = (newBGcolor) => {
-    this.setState({
-      BGColor: newBGcolor,
-    });
+
+  // function to update the state with the new background color for Chat Screen chosen by the user
+  changeBGColor = (newColor) => {
+    this.setState({ BGColor: newColor });
   };
+
+  // background colors to choose from; will be used to update BGColor state
+  colors = {
+    dark: "#090C08",
+    purple: "#474056",
+    blue: "#8A95A5",
+    green: "#B9C6AE",
+  };
+
   render() {
     return (
       //Different components do differents things; View acts as a div from html
@@ -38,36 +46,54 @@ export default class Start extends React.Component {
           style={styles.backgroundImage}
         >
           <View style={styles.titleBox}>
-            <Text style={styles.title}>Let's Chat!</Text>
+            <Text style={styles.title}>ChatApp</Text>
           </View>
+
           <View style={styles.box1}>
             <View style={styles.inputBox}>
               <TextInput
-                style={styles.yourName}
+                style={styles.input}
                 onChangeText={(text) => this.setState({ name: text })}
                 value={this.state.name}
                 placeholder="Your Name"
               />
             </View>
+
             <View style={styles.colorBox}>
               <Text style={styles.chooseColor}> Choose Background Color: </Text>
             </View>
+
             <View style={styles.colorArray}>
-              <View style={styles.color1} onPress={this.BGcolorHandler}></View>
-              <View style={styles.color2}></View>
-              <View style={styles.color3}></View>
-              <View style={styles.color4}></View>
+              <View
+                style={styles.color1}
+                onPress={() => this.changeBGColor(this.colors.dark)}
+              ></View>
+              <View
+                style={styles.color2}
+                onPress={() => this.changeBGColor(this.colors.purple)}
+              ></View>
+
+              <View
+                style={styles.color3}
+                onPress={() => this.changeBGColor(this.colors.blue)}
+              ></View>
+              <View
+                style={styles.color4}
+                onPress={() => this.changeBGColor(this.colors.green)}
+              ></View>
             </View>
-            <Pressable
+
+            <View
               style={styles.button}
               onPress={() =>
                 this.props.navigation.navigate("Chat", {
                   name: this.state.name,
+                  BGColor: this.state.BGColor,
                 })
               }
             >
               <Text style={styles.buttonText}>Start Chatting</Text>
-            </Pressable>
+            </View>
           </View>
         </ImageBackground>
       </View>
@@ -78,7 +104,6 @@ export default class Start extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    color: "#757083",
   },
 
   backgroundImage: {
@@ -102,7 +127,7 @@ const styles = StyleSheet.create({
   },
 
   box1: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "white",
     height: "44%",
     width: "88%",
     justifyContent: "space-around",
@@ -110,20 +135,26 @@ const styles = StyleSheet.create({
   },
 
   inputBox: {
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 1,
     borderColor: "grey",
     width: "88%",
     height: 60,
-    justifyContent: "center",
     paddingLeft: 20,
-    margin: 8,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  image: {
+    width: 20,
+    height: 20,
+    marginRight: 10,
   },
 
   input: {
     fontSize: 16,
     fontWeight: "300",
-
+    color: "#757083",
     opacity: 0.5,
   },
 
@@ -136,6 +167,7 @@ const styles = StyleSheet.create({
   chooseColor: {
     fontSize: 16,
     fontWeight: "300",
+    color: "#757083",
     opacity: 1,
   },
 
@@ -180,7 +212,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#757083",
     alignItems: "center",
     justifyContent: "center",
-    margin: 8,
   },
 
   buttonText: {
