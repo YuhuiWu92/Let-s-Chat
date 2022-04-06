@@ -19,7 +19,7 @@ export default class Start extends React.Component {
     // state will be updated with whatever values change for the specific states
     this.state = {
       name: "",
-      bgColor: this.colors.blue,
+      bgColor: this.colors.default,
     };
   }
 
@@ -32,20 +32,21 @@ export default class Start extends React.Component {
   colors = {
     dark: "#090C08",
     purple: "#474056",
-    blue: "#8A95A5",
-    green: "#B9C6AE",
+    blue: "#178EF2",
+    green: "#3B857D",
+    default: "white",
   };
 
   render() {
     return (
       //Different components do differents things; View acts as a div from html
-      <View style={styles.container}>
+      <View style={styles.container} accessible={true}>
         <ImageBackground
           source={BackgroundImage}
           resizeMode="cover"
           style={styles.backgroundImage}
         >
-          <View style={styles.titleBox}>
+          <View style={styles.titleBox} accessibilityLabel="Appilation name">
             <Text style={styles.title}>Let's Chat</Text>
           </View>
 
@@ -56,6 +57,8 @@ export default class Start extends React.Component {
                 onChangeText={(text) => this.setState({ name: text })}
                 value={this.state.name}
                 placeholder="Your Name"
+                accessibilityRole="input"
+                accessible={true}
               />
             </View>
 
@@ -67,23 +70,28 @@ export default class Start extends React.Component {
               <TouchableOpacity
                 style={styles.color1}
                 onPress={() => this.changeBgColor(this.colors.dark)}
+                accessibilityLabel="change dark Background color"
               ></TouchableOpacity>
               <TouchableOpacity
                 style={styles.color2}
                 onPress={() => this.changeBgColor(this.colors.purple)}
+                accessibilityLabel="change purple Background color"
               ></TouchableOpacity>
               <TouchableOpacity
                 style={styles.color3}
                 onPress={() => this.changeBgColor(this.colors.blue)}
+                accessibilityLabel="change blue Background color"
               ></TouchableOpacity>
               <TouchableOpacity
                 style={styles.color4}
                 onPress={() => this.changeBgColor(this.colors.green)}
+                accessibilityLabel="change blue green color"
               ></TouchableOpacity>
             </View>
 
             <Pressable
               style={styles.button}
+              accessibilityRole="button"
               onPress={() =>
                 this.props.navigation.navigate("Chat", {
                   name: this.state.name,
@@ -91,7 +99,9 @@ export default class Start extends React.Component {
                 })
               }
             >
-              <Text style={styles.buttonText}>Start Chatting</Text>
+              <TouchableOpacity>
+                <Text style={styles.buttonText}>Start Chatting</Text>
+              </TouchableOpacity>
             </Pressable>
           </View>
         </ImageBackground>
@@ -155,6 +165,8 @@ const styles = StyleSheet.create({
     fontWeight: "300",
     color: "#757083",
     opacity: 0.5,
+    width: "100%",
+    height: "100%",
   },
 
   colorBox: {
@@ -192,14 +204,14 @@ const styles = StyleSheet.create({
   },
 
   color3: {
-    backgroundColor: "#8A95A5",
+    backgroundColor: "#178EF2",
     width: 50,
     height: 50,
     borderRadius: 25,
   },
 
   color4: {
-    backgroundColor: "#B9C6AE",
+    backgroundColor: "#3B857D",
     width: 50,
     height: 50,
     borderRadius: 25,
