@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "react-native-gesture-handler";
 // import the screens
 import Start from "./components/Start";
 import Chat from "./components/Chat";
