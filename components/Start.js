@@ -57,7 +57,7 @@ export default class Start extends React.Component {
                 onChangeText={(text) => this.setState({ name: text })}
                 value={this.state.name}
                 placeholder="Your Name"
-                accessibilityRole="input"
+                accessibilityRole="text"
                 accessible={true}
               />
             </View>
@@ -99,9 +99,7 @@ export default class Start extends React.Component {
                 })
               }
             >
-              <TouchableOpacity>
-                <Text style={styles.buttonText}>Start Chatting</Text>
-              </TouchableOpacity>
+              <Text style={styles.buttonText}>Start Chatting</Text>
             </Pressable>
           </View>
         </ImageBackground>
