@@ -3,8 +3,8 @@ import { View, Platform, KeyboardAvoidingView } from "react-native";
 import { Bubble, GiftedChat } from "react-native-gifted-chat";
 import * as firebase from "firebase";
 import "firebase/firestore";
-//import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import NetInfo from "@react-native-community/netinfo";
 const firebaseConfig = {
   apiKey: "AIzaSyDR2dfMQ-LEJsK1Ler79a_JL4e189k7Xqw",
   authDomain: "let--s-chat-1be9e.firebaseapp.com",
@@ -33,17 +33,49 @@ export default class Chat extends React.Component {
     //this.referenceChatUser = null;
     this.referenceChatMessages = firebase.firestore().collection("messages");
   }
-
+  //get message from asyncStorage
+  async getMessages() {
+    let messages = "";
+    try {
+      messages = (await AsyncStorage.getItem("messages")) || [];
+      this.setState({
+        messages: JSON.parse(messages),
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+  //save messages
+  async saveMessages() {
+    try {
+      await AsyncStorage.setItem(
+        "messages",
+        JSON.stringify(this.state.messages)
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+  async deleteMessages() {
+    try {
+      await AsyncStorage.removeItem("messages");
+      this.setState({
+        messages: [],
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
   componentDidMount() {
     // Set the page title once Chat is loaded
     let { name } = this.props.route.params;
     // Adds the name to top of screen
     this.props.navigation.setOptions({ title: name });
+
     this.unsubscribe = this.referenceChatMessages
       .orderBy("createdAt", "desc")
       .onSnapshot(this.onCollectionUpdate);
 
-    /*   this.referenceChatMessages = firebase.firestore().collection("messages"); */
     this.authUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (!user) {
         await firebase.auth().signInAnonymously();
@@ -64,11 +96,8 @@ export default class Chat extends React.Component {
         .firestore()
         .collection("messages")
         .where("uid", "==", this.state.uid);
-
-      /* this.unsubscribeChatUser = this.referenceChatUser.onSnapshot(
-        this.onCollectionUpdate
-      ); */
     });
+    this.getMessages();
   }
 
   //update Collection
@@ -105,7 +134,7 @@ export default class Chat extends React.Component {
         messages: GiftedChat.append(previousState.messages, messages),
       }),
       () => {
-        this.addMessages();
+        this.saveMessages();
       }
     );
   }
