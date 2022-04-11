@@ -2,15 +2,18 @@
 
 This is a chat app for mobile devices using React Native, called "let's chat'.
 
-## Screen
-
-![This is an image](/assets/start-view.png)
-![This is an image](/assets/chat-view.png)
 my page in GitHub:
 https://yuhuiwu92.github.io/Let-s-Chat/
 
 my code in GitHub:
 https://github.com/YuhuiWu92/Let-s-Chat
+
+
+## Screen
+
+![This is an image](/assets/start-view.png)
+![This is an image](/assets/chat-view.png)
+
 
 ## Built with:
 
@@ -45,3 +48,5 @@ and location data.
 3. see the Dependencies
 
 the App can be run in the ISO Simulator, Anriod Studio, local server. You need to download Expo in your handy, and scan the QR code in the terminal to use the chat app.
+
+
