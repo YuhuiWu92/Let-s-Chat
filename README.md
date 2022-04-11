@@ -2,6 +2,10 @@
 
 This is a chat app for mobile devices using React Native, called "let's chat'.
 
+## Screen
+
+![This is an image](/assets/start-view.png)
+![This is an image](/assets/chat-view.png)
 my page in GitHub:
 https://yuhuiwu92.github.io/Let-s-Chat/
 
