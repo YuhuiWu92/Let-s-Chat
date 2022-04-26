@@ -90,7 +90,15 @@ export default class Start extends React.Component {
             </View>
 
             <Pressable
-              style={styles.button}
+              style={{
+                backgroundColor: this.state.bgColor,
+                borderColor: "pink",
+                borderWidth: "2px",
+                width: "88%",
+                height: 70,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
               accessibilityRole="button"
               onPress={() =>
                 this.props.navigation.navigate("Chat", {
@@ -224,7 +232,7 @@ const styles = StyleSheet.create({
   },
 
   buttonText: {
-    color: "#FFFFFF",
+    color: "pink",
     fontSize: 16,
     fontWeight: "600",
   },
